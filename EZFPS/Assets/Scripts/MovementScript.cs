@@ -30,6 +30,7 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             run = true;
@@ -64,8 +65,19 @@ public class MovementScript : MonoBehaviour
         }
 
         //animator
-        float animationSpeedPercent = ((run) ? .5f : 0);
-        animator.SetFloat("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
+        if (x > 0 || z > 0)
+        {   
+           // Debug.Log("walking");
+            animator.SetFloat("speedPercent", .5f);
+        }
+        else if (run)
+        {
+        animator.SetFloat("speedPercent", .5f);
+        }
+        else
+        {
+            animator.SetFloat("speedPercent", 0);
+        }
 
     }
     public bool IsGrounded()
