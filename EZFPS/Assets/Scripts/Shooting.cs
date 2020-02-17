@@ -7,6 +7,7 @@ public class Shooting : MonoBehaviour
     public float damage = 10f;
     public float range = 100f;
     public Camera mainCam;
+    public ParticleSystem muzzleFlash;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class Shooting : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
+            muzzleFlash.Play(true);
         }
     }
     public void Shoot()
