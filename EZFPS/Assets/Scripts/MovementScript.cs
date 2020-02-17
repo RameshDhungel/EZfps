@@ -12,6 +12,9 @@ public class MovementScript : MonoBehaviour
     float senseX = 200f;
     float senseY = 100f;
     float truncatVerticalRotation = 0f;
+    bool run;
+    float jumpSpeed = 5f;
+    bool isJumping;
 
     // Start is called before the first frame update
     void Start()
@@ -23,22 +26,38 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            run = true;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            run = false;
+        }
+
         PlayerMovement();
     }
 
     public void PlayerMovement()
     {
+        speed = run? 10 : 5; //Makes speed var 10 or 5 depending on if the player is running
+        //Handles player moving
         float x = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
         float z = Input.GetAxis("Vertical") * Time.deltaTime * speed;
 
         transform.Translate(x, 0, z);
 
-        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * Time.deltaTime * senseX);
+        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * Time.deltaTime * senseX); //Player rotation left and right
 
         truncatVerticalRotation += Input.GetAxis("Mouse Y") * Time.deltaTime * senseX;
         truncatVerticalRotation = Mathf.Clamp(truncatVerticalRotation, -30, 30);
-        mainCam.transform.localEulerAngles = Vector3.left * truncatVerticalRotation;
+        mainCam.transform.localEulerAngles = Vector3.left * truncatVerticalRotation; // Player rotation up and down
 
+        //Jumping
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+        }
 
     }
 }
