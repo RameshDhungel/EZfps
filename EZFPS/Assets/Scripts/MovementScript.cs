@@ -13,7 +13,7 @@ public class MovementScript : MonoBehaviour
     float senseY = 100f;
     float truncatVerticalRotation = 0f;
     bool run;
-    float jumpSpeed = 5f;
+    float jumpForce = 10f;
     bool isJumping;
 
     // Start is called before the first frame update
@@ -54,10 +54,24 @@ public class MovementScript : MonoBehaviour
         mainCam.transform.localEulerAngles = Vector3.left * truncatVerticalRotation; // Player rotation up and down
 
         //Jumping
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) & IsGrounded())
         {
-
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+      
 
+    }
+    public bool IsGrounded()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, -transform.up);
+        if(Physics.Raycast(ray, out hit, 1+.1f))
+        {
+            if(hit.collider != null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
