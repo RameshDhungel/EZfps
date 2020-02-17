@@ -65,7 +65,7 @@ public class MovementScript : MonoBehaviour
         }
 
         //animator
-        if (x > 0 || z > 0)
+        if (x != 0 || z != 0)
         {   
            // Debug.Log("walking");
             animator.SetFloat("speedPercent", .5f);
