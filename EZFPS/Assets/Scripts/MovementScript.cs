@@ -16,9 +16,13 @@ public class MovementScript : MonoBehaviour
     float jumpForce = 10f;
     bool isJumping;
 
+    Animator animator;
+    public float speedSmoothTime = 0.1f;
+
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
@@ -26,6 +30,7 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             run = true;
@@ -58,7 +63,21 @@ public class MovementScript : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-      
+
+        //animator
+        if (x > 0 || z > 0)
+        {   
+           // Debug.Log("walking");
+            animator.SetFloat("speedPercent", .5f);
+        }
+        else if (run)
+        {
+        animator.SetFloat("speedPercent", .5f);
+        }
+        else
+        {
+            animator.SetFloat("speedPercent", 0);
+        }
 
     }
     public bool IsGrounded()
