@@ -18,8 +18,8 @@ public class MovementScript : MonoBehaviour
 
     Animator animator;
     public float speedSmoothTime = 0.1f;
-    float x;
-    float z;
+    float x = 0;
+    float z = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +33,7 @@ public class MovementScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && x != 0 && z != 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && x != 0 || z != 0)
         {
             run = true;
         }
