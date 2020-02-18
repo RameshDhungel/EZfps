@@ -32,8 +32,8 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && x != 0 || z != 0)
+        Debug.Log(run);
+        if (Input.GetKeyDown(KeyCode.LeftShift) & (x != 0 || z != 0))
         {
             run = true;
         }
@@ -67,7 +67,7 @@ public class MovementScript : MonoBehaviour
         }
 
         //animator
-        if (x != 0 || z != 0)
+        if ((x != 0 || z != 0) && !run)
         {   
            // Debug.Log("walking");
             animator.SetFloat("speedPercent", .15f);
