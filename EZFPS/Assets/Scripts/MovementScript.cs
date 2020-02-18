@@ -18,6 +18,8 @@ public class MovementScript : MonoBehaviour
 
     Animator animator;
     public float speedSmoothTime = 0.1f;
+    float x = 0;
+    float z = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +33,7 @@ public class MovementScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && x != 0 || z != 0)
         {
             run = true;
         }
@@ -47,8 +49,8 @@ public class MovementScript : MonoBehaviour
     {
         speed = run? 10 : 5; //Makes speed var 10 or 5 depending on if the player is running
         //Handles player moving
-        float x = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-        float z = Input.GetAxis("Vertical") * Time.deltaTime * speed;
+        x = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+        z = Input.GetAxis("Vertical") * Time.deltaTime * speed;
 
         transform.Translate(x, 0, z);
 
@@ -68,7 +70,7 @@ public class MovementScript : MonoBehaviour
         if (x != 0 || z != 0)
         {   
            // Debug.Log("walking");
-            animator.SetFloat("speedPercent", .5f);
+            animator.SetFloat("speedPercent", .15f);
         }
         else if (run)
         {
