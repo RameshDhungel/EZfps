@@ -34,6 +34,11 @@ public class Shooting : MonoBehaviour
             Shoot();
             muzzleFlash.Play(true);
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
+        }
       
     }
     public void Shoot()
@@ -43,40 +48,47 @@ public class Shooting : MonoBehaviour
         if(Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, range)){
             Debug.Log(hit.transform.name);
         }
-
+        
         currentAmmo = currentAmmo - 1f;
         UpdateAmmoUI(currentAmmo, totalAmmo);
         if (currentAmmo == 0)
         {
+            magEmpty = true;
             Reload();
-            //magEmpty = true;
+           
         }
     }
     public void Reload()
     {
+        //Checks to see if total ammo is 0
         if (totalAmmo> 0)
         {
+            //if there is no ammo in the magazine and total ammo is more than mag size ammo
             if (currentAmmo == 0 && (totalAmmo - magSize) >= 0)
             {
                 currentAmmo = magSize;
                 UpdateTotalAmmo(magSize);
             }
+            //if there is no ammo in the magazine and total ammo is not more than mag size ammo
             else if (currentAmmo == 0 && (totalAmmo - magSize) < 0)
             {
                 currentAmmo += totalAmmo;
                 UpdateTotalAmmo(totalAmmo);
             }
+            // if there is ammo in the mag but they reloaded and there is enough total ammo left to get full magazine of ammo
             else if (currentAmmo > 0 && (totalAmmo >= (magSize - currentAmmo)))
             {
-                currentAmmo += (magSize - currentAmmo);
                 UpdateTotalAmmo(magSize - currentAmmo);
+                currentAmmo += (magSize - currentAmmo);
             }
+            // if there is ammo in the mag but they reloaded and there is not enough total ammo left to get full magazine of ammo
             else
             {
                 currentAmmo += totalAmmo;
                 UpdateTotalAmmo(totalAmmo);
             }
-
+            //updates ammo UI
+            UpdateAmmoUI(currentAmmo, totalAmmo);
             magEmpty = false;
         }
     }

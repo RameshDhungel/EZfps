@@ -32,7 +32,9 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(run);
+    }
+    private void FixedUpdate()
+    {
         if (Input.GetKeyDown(KeyCode.LeftShift) & (x != 0 || z != 0))
         {
             run = true;
