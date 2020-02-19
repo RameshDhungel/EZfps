@@ -16,6 +16,7 @@ public class Shooting : MonoBehaviour
     public float magSize = 6;
 
     public bool magEmpty = false;
+    public bool reloading = false;
 
 
     void Start()
@@ -29,7 +30,7 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && !magEmpty)
+        if (Input.GetButtonDown("Fire1") && !magEmpty &&!reloading)
         {
             Shoot();
             muzzleFlash.Play(true);
@@ -37,7 +38,7 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Reload();
+           StartCoroutine(Reload());
         }
       
     }
@@ -54,12 +55,14 @@ public class Shooting : MonoBehaviour
         if (currentAmmo == 0)
         {
             magEmpty = true;
-            Reload();
+           StartCoroutine(Reload());
            
         }
     }
-    public void Reload()
+    IEnumerator Reload()
     {
+        reloading = true;
+        yield return new WaitForSeconds(2f);
         //Checks to see if total ammo is 0
         if (totalAmmo> 0)
         {
@@ -90,6 +93,7 @@ public class Shooting : MonoBehaviour
             //updates ammo UI
             UpdateAmmoUI(currentAmmo, totalAmmo);
             magEmpty = false;
+            reloading = false;
         }
     }
     public void UpdateTotalAmmo(float usedAmmo)
