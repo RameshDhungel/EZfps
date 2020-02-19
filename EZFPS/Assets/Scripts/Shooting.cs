@@ -9,6 +9,7 @@ public class Shooting : MonoBehaviour
     public float range = 100f;
     public Camera mainCam;
     public ParticleSystem muzzleFlash;
+    public GameObject bulletImpactEffect;
     public TextMeshProUGUI ammoUI;
 
     public float currentAmmo;
@@ -48,6 +49,8 @@ public class Shooting : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, range)){
             Debug.Log(hit.transform.name);
+            GameObject bullet = Instantiate(bulletImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(bullet, 1f);
         }
         
         currentAmmo = currentAmmo - 1f;

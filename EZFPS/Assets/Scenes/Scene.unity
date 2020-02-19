@@ -699,11 +699,14 @@ MonoBehaviour:
   range: 100
   mainCam: {fileID: 1035458268}
   muzzleFlash: {fileID: 244294538}
+  bulletImpactEffect: {fileID: 9188070193197245016, guid: 4708d2f8b71f023478dda8ca0cdcfbbc,
+    type: 3}
   ammoUI: {fileID: 1224231829}
   currentAmmo: 0
   totalAmmo: 60
   magSize: 6
   magEmpty: 0
+  reloading: 0
 --- !u!114 &1394396104
 MonoBehaviour:
   m_ObjectHideFlags: 0
