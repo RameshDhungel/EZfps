@@ -21,6 +21,8 @@ public class MovementScript : MonoBehaviour
     float x = 0;
     float z = 0;
 
+    public Transform bone;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,5 +98,9 @@ public class MovementScript : MonoBehaviour
             }
         }
         return false;
+    }
+    private void LateUpdate()
+    {
+        bone.transform.localEulerAngles = mainCam.transform.localEulerAngles;
     }
 }
